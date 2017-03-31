@@ -11,7 +11,7 @@ lazy val compilerSettings = Seq(
 
 lazy val dependencySettings = Seq(
   libraryDependencies ++= Seq(
-    "org.apache.zookeeper" % "zookeeper" % "3.4.6"
+    "org.apache.zookeeper" % "zookeeper" % "3.4.10"
       exclude("jline", "jline"),
     "log4j" % "log4j" % "1.2.16"
       exclude("javax.jms", "jms"),
