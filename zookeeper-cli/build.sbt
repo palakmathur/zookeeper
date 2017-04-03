@@ -26,9 +26,7 @@ lazy val packageSettings = packSettings ++ Seq(
   artifact in (Compile, packArchive) := Artifact(name.value, "tar", "tar.gz")
 )
 
-// addArtifact(artifact in (Compile, packArchive), packArchive).settings
-
-lazy val publishSettings = Seq(
+lazy val publishSettings = publishPackArchives ++ Seq(
   pomIncludeRepository := { _ => false },
   pomExtra :=
     <developers>
