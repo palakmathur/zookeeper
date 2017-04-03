@@ -61,7 +61,7 @@ options:
     ("encoding", 'e') ~> as[Charset] ~~ Charset.forName("UTF-8") ::
     ("sequential", 'S') ~> just(true) ~~ false ::
     ("ephemeral", 'E') ~> just(true) ~~ false ::
-    ("acl", 'A') ~>+ as[ACL] ~~ Seq(ACL.AnyoneAll) ::
+    ("acl", 'A') ~>+ as[ACL] ::
     Nil
 
   def command(zk: Zookeeper) = new CommandProcessor {
@@ -71,7 +71,7 @@ options:
       val optr = opts <~ args
       val recurse = optr[Boolean]("recursive")
       val disp = dispOpt(optr)
-      val acl = optr[Seq[ACL]]("acl")
+      val acl = aclOpt(optr)
       val (path, afterPath) = pathArg(optr, false)
       val data = dataArg(optr, afterPath)
       val node = Node(context resolve path)
@@ -85,7 +85,7 @@ options:
     val optr = opts <~ args
     val recurse = optr[Boolean]("recursive")
     val disp = dispOpt(optr)
-    val acl = optr[Seq[ACL]]("acl")
+    val acl = aclOpt(optr)
     val (path, afterPath) = pathArg(optr, true)
     val data = dataArg(optr, afterPath)
 
@@ -122,6 +122,11 @@ options:
       case (false, true) => Ephemeral
       case (false, false) => Persistent
     }
+  }
+
+  private def aclOpt(optr: OptResult): Seq[ACL] = optr.get("acl") match {
+    case Some(acl) => acl
+    case None => ACL.AnyoneAll
   }
 
   private def pathArg(optr: OptResult, relative: Boolean): (Path, Seq[String]) = optr.args match {
