@@ -13,7 +13,7 @@ lazy val dependencySettings = Seq(
   libraryDependencies ++= Seq(
     "com.loopfor.zookeeper" %% "zookeeper-client" % "1.4-SNAPSHOT",
     "com.loopfor.scalop" %% "scalop" % "2.2",
-    "jline" % "jline" % "2.12.1",
+    "jline" % "jline" % "2.14.2",
     "log4j" % "log4j" % "1.2.16" % "runtime"
       exclude("javax.jms", "jms"),
     "org.scalatest" %% "scalatest" % "3.0.1" % "test"
